@@ -1,0 +1,43 @@
+# Source & development
+src/
+vite.config.js
+vite-*.tgz
+postcss.config.js
+tailwind.config.js
+vitest.config.js
+.eslintrc.cjs
+
+# Tests & reports
+test/
+tests/
+coverage/
+reports/
+__tests__/
+
+# Dev tools & cache
+node_modules/
+.cache/
+*.log
+
+# CI/CD & Docker
+.github/
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Docs (not needed at runtime)
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+CHANGELOG.md
+
+# OS & editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Misc
+.gitignore

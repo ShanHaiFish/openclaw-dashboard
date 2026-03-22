@@ -1,0 +1,252 @@
+{
+  "app": {
+    "name": "OpenClaw Dashboard",
+    "tagline": "Real-time monitoring for AI agents",
+    "version": "Version"
+  },
+  "nav": {
+    "overview": "Overview",
+    "sessions": "Sessions",
+    "agents": "Agents",
+    "tasks": "Tasks",
+    "analytics": "Analytics",
+    "activity": "Activity",
+    "alerts": "Alerts",
+    "skills": "Skills",
+    "settings": "Settings",
+    "system": "System"
+  },
+  "overview": {
+    "title": "Overview",
+    "activeSessions": "Active Sessions",
+    "runningTasks": "Running Tasks",
+    "totalAgents": "Total Agents",
+    "onlineAgents": "Online Agents",
+    "totalMessages": "Total Messages",
+    "systemUptime": "System Uptime",
+    "recentActivity": "Recent Activity",
+    "taskProgress": "Task Progress",
+    "activityChart": "Activity",
+    "quickStats": "Quick Stats"
+  },
+  "sessions": {
+    "title": "Sessions",
+    "search": "Search sessions...",
+    "status": "Status",
+    "model": "Model",
+    "messages": "Messages",
+    "tokens": "Tokens",
+    "created": "Created",
+    "lastActivity": "Last Activity",
+    "duration": "Duration",
+    "active": "Active",
+    "idle": "Idle",
+    "error": "Error",
+    "completed": "Completed",
+    "noSessions": "No sessions found",
+    "viewDetails": "View Details",
+    "filter": "Filter",
+    "sort": "Sort"
+  },
+  "agents": {
+    "title": "Agents",
+    "search": "Search agents...",
+    "online": "Online",
+    "offline": "Offline",
+    "idle": "Idle",
+    "sessions": "Sessions",
+    "successRate": "Success Rate",
+    "avgResponse": "Avg Response",
+    "capabilities": "Capabilities",
+    "noAgents": "No agents found"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "todo": "To Do",
+    "inProgress": "In Progress",
+    "review": "Review",
+    "done": "Done",
+    "priority": "Priority",
+    "assignee": "Assignee",
+    "dueDate": "Due Date",
+    "noTasks": "No tasks found",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "critical": "Critical",
+    "dependencies": "Dependencies",
+    "estimatedHours": "Estimated Hours",
+    "progress": "Progress"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "shortcuts": "Keyboard Shortcuts",
+    "about": "About",
+    "accentColor": "Accent Color",
+    "notificationTypes": "Notification Types",
+    "enableNotifications": "Enable Notifications",
+    "emailNotifications": "Email Notifications",
+    "pushNotifications": "Push Notifications",
+    "version": "Version",
+    "license": "License",
+    "repository": "Repository"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "amoled": "AMOLED",
+    "system": "System"
+  },
+  "commandPalette": {
+    "placeholder": "Type a command or search...",
+    "noResults": "No results found",
+    "recent": "Recent",
+    "actions": "Actions",
+    "navigation": "Navigation",
+    "sessions": "Sessions",
+    "agents": "Agents",
+    "goTo": "Go to",
+    "toggleTheme": "Toggle theme",
+    "switchLanguage": "Switch language"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "commandPalette": "Open command palette",
+    "toggleSidebar": "Toggle sidebar",
+    "goToOverview": "Go to Overview",
+    "goToSessions": "Go to Sessions",
+    "goToAgents": "Go to Agents",
+    "goToTasks": "Go to Tasks",
+    "goToSettings": "Go to Settings",
+    "toggleDark": "Toggle dark theme",
+    "toggleLight": "Toggle light theme",
+    "showShortcuts": "Show shortcuts",
+    "jumpToNav": "Jump to navigation item"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAsRead": "Mark as read",
+    "clearAll": "Clear all",
+    "noNotifications": "No notifications",
+    "new": "New"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "refresh": "Refresh",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "all": "All",
+    "none": "None",
+    "select": "Select",
+    "deselect": "Deselect",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
+  },
+  "time": {
+    "now": "Just now",
+    "minuteAgo": "1 minute ago",
+    "minutesAgo": "{n} minutes ago",
+    "hourAgo": "1 hour ago",
+    "hoursAgo": "{n} hours ago",
+    "dayAgo": "1 day ago",
+    "daysAgo": "{n} days ago"
+  },
+  "system": {
+    "cpu": "CPU Usage",
+    "memory": "Memory Usage",
+    "disk": "Disk Usage",
+    "network": "Network",
+    "networkIn": "Network In",
+    "networkOut": "Network Out",
+    "uptime": "Uptime",
+    "healthy": "Healthy",
+    "degraded": "Degraded",
+    "down": "Down",
+    "successRate": "Success Rate",
+    "processes": "Processes",
+    "metrics": "System Metrics"
+  },
+  "about": {
+    "title": "About",
+    "description": "A stunning, real-time monitoring dashboard for OpenClaw AI agents",
+    "builtWith": "Built with",
+    "starOnGithub": "Star on GitHub",
+    "viewSource": "View Source"
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred. Don't worry, your data is safe.",
+    "details": "Error details",
+    "tryAgain": "Try Again",
+    "reloadPage": "Reload Page"
+  },
+  "splash": {
+    "loading": "Loading...",
+    "tagline": "Real-time monitoring for AI agents"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved. Let's get you back on track."
+  },
+  "plugins": {
+    "title": "Plugins",
+    "noPlugins": "No plugins installed",
+    "install": "Install Plugin",
+    "manage": "Manage Plugins"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "tokens": "Token Usage",
+    "cost": "Cost",
+    "burnRate": "Burn Rate",
+    "modelDistribution": "Model Distribution",
+    "trend": "7-Day Trend",
+    "budget": "Budget",
+    "inputTokens": "Input",
+    "outputTokens": "Output",
+    "totalCost": "Total Cost"
+  },
+  "alerts": {
+    "title": "Alerts",
+    "critical": "Critical",
+    "warning": "Warning",
+    "info": "Info",
+    "noAlerts": "No alerts",
+    "dismiss": "Dismiss",
+    "budgetExceeded": "Budget exceeded",
+    "taskFailed": "Task failed"
+  },
+  "activity": {
+    "title": "Activity",
+    "sessionStart": "Session started",
+    "taskComplete": "Task completed",
+    "error": "Error",
+    "noActivity": "No activity"
+  },
+  "skills": {
+    "title": "Skills",
+    "description": "Installed skills and capabilities",
+    "search": "Search skills...",
+    "installed": "installed",
+    "noSkills": "No skills found",
+    "lastUpdated": "Updated"
+  }
+}
