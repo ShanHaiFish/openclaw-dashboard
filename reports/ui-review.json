@@ -1,0 +1,378 @@
+{
+  "meta": {
+    "project": "OpenClaw Dashboard",
+    "version": "2.0.0",
+    "reviewDate": "2026-03-22",
+    "reviewer": "Ant (UI/UX Review Agent)",
+    "scope": "全面 UI/UX 审查"
+  },
+
+  "scores": {
+    "visualConsistency": 82,
+    "interactionExperience": 75,
+    "responsiveDesign": 70,
+    "accessibility": 55,
+    "animationTransition": 85,
+    "overall": 73.4
+  },
+
+  "visualConsistency": {
+    "rating": "良好",
+    "score": 82,
+    "strengths": [
+      {
+        "item": "颜色系统统一",
+        "description": "使用 CSS 变量定义 dark/light/amoled 三套主题，语义化命名清晰（--bg-primary, --text-secondary 等）",
+        "location": "src/index.css"
+      },
+      {
+        "item": "字体层级清晰",
+        "description": "使用 Inter 字体为主，JetBrains Mono 为等宽字体。font-size 从 2xs (0.625rem) 到 2xl (1.5rem) 层级分明",
+        "location": "tailwind.config.js"
+      },
+      {
+        "item": "4px/8px 网格规范",
+        "description": "CSS 变量定义 --space-1 到 --space-12，Tailwind spacing 扩展了 18, 88, 128",
+        "location": "src/index.css, tailwind.config.js"
+      },
+      {
+        "item": "圆角/阴影一致性",
+        "description": "定义了 --radius-sm 到 --radius-2xl，以及 glow, card, card-hover 等阴影",
+        "location": "tailwind.config.js"
+      },
+      {
+        "item": "玻璃拟态效果统一",
+        "description": ".glass 工具类统一处理背景模糊和边框效果",
+        "location": "src/index.css"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "medium",
+        "title": "硬编码颜色值分散在组件中",
+        "description": "多个组件直接使用 text-emerald-400, bg-red-500 等硬编码颜色，而非使用 CSS 变量或设计 token",
+        "locations": [
+          "src/components/Agents/AgentCard.jsx: line 35 (text-emerald-400)",
+          "src/components/Dashboard/OverviewCards.jsx: line 30 (hardcoded gradient colors)",
+          "src/components/ui/Badge.jsx: lines 8-10 (hardcoded success/warning/error colors)"
+        ],
+        "recommendation": "将状态颜色也纳入 CSS 变量系统，如 --success-color, --warning-color"
+      },
+      {
+        "severity": "low",
+        "title": "OverviewCards 渐变色未使用主题色",
+        "description": "6 个统计卡片的渐变色是硬编码的 from-sky-500 to-blue-600 等，无法随主题变化",
+        "locations": ["src/components/Dashboard/OverviewCards.jsx: lines 18-27"],
+        "recommendation": "考虑使用 CSS 变量定义渐变色，或允许自定义"
+      },
+      {
+        "severity": "low",
+        "title": "CSS 变量与 Tailwind 颜色重复定义",
+        "description": "surface 颜色在 tailwind.config.js 和 CSS 变量中都有定义，存在维护不同步风险",
+        "locations": ["tailwind.config.js: lines 22-35", "src/index.css: lines 44-98"]
+      }
+    ]
+  },
+
+  "interactionExperience": {
+    "rating": "良好",
+    "score": 75,
+    "strengths": [
+      {
+        "item": "按钮点击反馈",
+        "description": "Button 组件有 active:scale-[0.98] 点击缩放反馈"
+      },
+      {
+        "item": "加载状态完整",
+        "description": "提供 Skeleton, SkeletonCard, SkeletonTable, SkeletonList 多种骨架屏组件"
+      },
+      {
+        "item": "空状态处理",
+        "description": "EmptyState 组件支持 empty, search, notFound, error 四种类型"
+      },
+      {
+        "item": "错误边界",
+        "description": "ErrorBoundary 组件捕获错误并显示友好的错误界面，支持重试和重新加载"
+      },
+      {
+        "item": "命令面板",
+        "description": "CommandPalette 提供全局搜索和快捷键操作"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "high",
+        "title": "缺少全局 Toast/通知反馈系统",
+        "description": "当前没有成功/失败的 toast 提示机制。用户执行操作后无法获得即时反馈",
+        "recommendation": "实现一个全局 Toast 组件，支持 success, error, warning, info 四种类型"
+      },
+      {
+        "severity": "medium",
+        "title": "Modal 未实现焦点陷阱",
+        "description": "Modal 组件打开后，Tab 键可以聚焦到背景元素，影响可访问性",
+        "locations": ["src/components/ui/Modal.jsx"],
+        "recommendation": "添加 focus trap 逻辑，确保 Modal 打开时焦点限制在 Modal 内"
+      },
+      {
+        "severity": "medium",
+        "title": "移动端菜单导航未完整实现",
+        "description": "Header 组件的 mobileMenuOpen 菜单按钮点击后不执行实际导航",
+        "locations": ["src/components/Layout/Header.jsx: lines 95-105"]
+      },
+      {
+        "severity": "low",
+        "title": "Tooltip 仅支持鼠标交互",
+        "description": "Tooltip 组件只响应 mouseenter/mouseleave，不支持键盘聚焦触发",
+        "locations": ["src/components/ui/Tooltip.jsx"]
+      },
+      {
+        "severity": "low",
+        "title": "通知面板无分页/无限滚动",
+        "description": "NotificationPanel 一次加载所有通知，大量通知时可能性能问题"
+      }
+    ]
+  },
+
+  "responsiveDesign": {
+    "rating": "中等",
+    "score": 70,
+    "breakpoints": {
+      "mobile": "< 768px",
+      "tablet": "768px - 1023px",
+      "desktop": "≥ 1024px"
+    },
+    "strengths": [
+      {
+        "item": "响应式网格系统",
+        "description": "OverviewCards 使用 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
+      },
+      {
+        "item": "移动端底部导航",
+        "description": "MobileNav 组件在移动端显示底部导航栏，使用 safe-area-inset"
+      },
+      {
+        "item": "侧边栏自适应",
+        "description": "桌面端可折叠，平板端自动收窄，移动端隐藏"
+      },
+      {
+        "item": "响应式搜索框",
+        "description": "Header 中搜索框从 w-64 到 w-80 响应式调整"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "high",
+        "title": "MobileNav 项目过多",
+        "description": "底部导航显示 8 个项目，在小屏设备上会非常拥挤。建议精简为 5 个核心功能",
+        "locations": ["src/components/Layout/MobileNav.jsx: lines 26-34"],
+        "recommendation": "移动端只显示 5 个主要导航项，其余放更多菜单"
+      },
+      {
+        "severity": "medium",
+        "title": "通知面板在移动端位置不当",
+        "description": "NotificationPanel 使用 fixed right-4，在移动端可能超出屏幕或与底部导航重叠",
+        "locations": ["src/components/Notifications/NotificationPanel.jsx: line 49"]
+      },
+      {
+        "severity": "medium",
+        "title": "命令面板在小屏上宽度问题",
+        "description": "CommandPalette 使用 max-w-xl，在 320px 宽的设备上会显得过大",
+        "locations": ["src/components/CommandPalette/CommandPalette.jsx: line 120"]
+      },
+      {
+        "severity": "medium",
+        "title": "AgentGrid 在中等屏幕的布局",
+        "description": "缺少 768-1023px 断点的专门优化，可能在平板横屏显示不佳"
+      },
+      {
+        "severity": "low",
+        "title": "Settings 页面主题选择 grid 响应式",
+        "description": "Appearance 组件使用 grid-cols-2 md:grid-cols-4，中间断点(768-1023)只显示2列"
+      }
+    ]
+  },
+
+  "accessibility": {
+    "rating": "需要改进",
+    "score": 55,
+    "strengths": [
+      {
+        "item": "焦点样式定义",
+        "description": "全局定义了 :focus-visible 样式，使用 2px 蓝色轮廓"
+      },
+      {
+        "item": "CommandPalette 键盘导航",
+        "description": "支持上下箭头选择、Enter 确认、Escape 关闭"
+      },
+      {
+        "item": "语义化 HTML",
+        "description": "使用 nav, header, main, aside 等语义标签"
+      },
+      {
+        "item": "自定义滚动条样式",
+        "description": "::-webkit-scrollbar 提供一致的滚动体验"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "high",
+        "title": "交互元素缺少 ARIA 标签",
+        "description": "大量 Button 和 icon button 缺少 aria-label 属性",
+        "locations": [
+          "src/components/Layout/Sidebar.jsx (导航按钮)",
+          "src/components/Layout/Header.jsx (图标按钮)",
+          "src/components/ui/Button.jsx (需要支持 aria-label prop)"
+        ],
+        "recommendation": "为所有纯图标按钮添加 aria-label，按钮组件支持 aria-label prop"
+      },
+      {
+        "severity": "high",
+        "title": "缺少 skip navigation 链接",
+        "description": "没有跳转到主内容的链接，键盘用户需要遍历所有导航项"
+      },
+      {
+        "severity": "medium",
+        "title": "状态指示器对比度不足",
+        "description": "StatusDot 组件在某些状态下可能对比度不足，特别是浅色主题下的浅绿色",
+        "locations": ["src/components/ui/StatusDot.jsx"]
+      },
+      {
+        "severity": "medium",
+        "title": "动画缺少减少运动偏好支持",
+        "description": "未检测 prefers-reduced-motion 媒体查询，部分用户可能不适应动画"
+      },
+      {
+        "severity": "medium",
+        "title": "Badge 组件可访问性",
+        "description": "Badge 缺少 role 属性，屏幕阅读器可能无法正确识别状态",
+        "locations": ["src/components/ui/Badge.jsx"]
+      },
+      {
+        "severity": "low",
+        "title": "图表可访问性",
+        "description": "Recharts 图表缺少 aria-label 和摘要描述，屏幕阅读器无法理解图表内容"
+      }
+    ]
+  },
+
+  "animationTransition": {
+    "rating": "良好",
+    "score": 85,
+    "strengths": [
+      {
+        "item": "页面切换动画",
+        "description": "使用 framer-motion 的 motion.div 实现淡入+上移动画 (opacity: 0 -> 1, y: 8 -> 0)"
+      },
+      {
+        "item": "卡片入场动画",
+        "description": "OverviewCards 使用 staggerChildren 实现交错入场动画"
+      },
+      {
+        "item": "悬浮效果",
+        "description": "card-hover 类提供 translateY(-2px) + 阴影增强效果"
+      },
+      {
+        "item": "主题切换过渡",
+        "description": "CSS 变量 transition: background-color var(--transition-normal), color var(--transition-normal)"
+      },
+      {
+        "item": "侧边栏折叠动画",
+        "description": "使用 framer-motion 的 animate={{ width: collapsed ? 72 : 260 }}"
+      },
+      {
+        "item": "标签切换动画",
+        "description": "Tabs 组件使用 layoutId 实现底部指示器滑动效果"
+      }
+    ],
+    "issues": [
+      {
+        "severity": "low",
+        "title": "页面切换缺少退出动画",
+        "description": "使用 AnimatePresence 包裹 Outlet 可以添加退出动画"
+      },
+      {
+        "severity": "low",
+        "title": "shimmer 动画可优化",
+        "description": "CSS shimmer 动画和 Tailwind animate-shimmer 定义重复"
+      },
+      {
+        "severity": "low",
+        "title": "Count-up 动画未真正计数",
+        "description": "count-animate 类只有淡入效果，没有实际数字滚动"
+      }
+    ]
+  },
+
+  "recommendedPriority": [
+    {
+      "priority": 1,
+      "category": "可访问性",
+      "action": "为所有交互元素添加 ARIA 标签，特别是图标按钮和导航项",
+      "effort": "中",
+      "impact": "高"
+    },
+    {
+      "priority": 2,
+      "category": "交互体验",
+      "action": "实现全局 Toast 通知系统用于操作反馈",
+      "effort": "中",
+      "impact": "高"
+    },
+    {
+      "priority": 3,
+      "category": "可访问性",
+      "action": "添加 skip navigation 链接和减少运动偏好支持",
+      "effort": "低",
+      "impact": "中"
+    },
+    {
+      "priority": 4,
+      "category": "交互体验",
+      "action": "Modal 组件实现焦点陷阱",
+      "effort": "低",
+      "impact": "中"
+    },
+    {
+      "priority": 5,
+      "category": "响应式设计",
+      "action": "优化移动端底部导航，精简为 5 个核心项目",
+      "effort": "低",
+      "impact": "中"
+    },
+    {
+      "priority": 6,
+      "category": "视觉一致性",
+      "action": "将分散的硬编码颜色值纳入设计 token 系统",
+      "effort": "中",
+      "impact": "低"
+    }
+  ],
+
+  "componentAudit": {
+    "ui": {
+      "Avatar.jsx": {"status": "not-reviewed", "notes": "未发现问题"},
+      "Badge.jsx": {"status": "needs-fix", "issues": ["缺少可访问性属性", "颜色硬编码"]},
+      "Button.jsx": {"status": "needs-fix", "issues": ["需要支持 aria-label prop"]},
+      "Card.jsx": {"status": "good", "issues": []},
+      "Dropdown.jsx": {"status": "not-reviewed", "notes": "需要检查键盘导航"},
+      "EmptyState.jsx": {"status": "good", "issues": []},
+      "ErrorBoundary.jsx": {"status": "good", "issues": []},
+      "Input.jsx": {"status": "good", "issues": []},
+      "Logo.jsx": {"status": "good", "issues": []},
+      "Modal.jsx": {"status": "needs-fix", "issues": ["焦点陷阱缺失"]},
+      "ProgressBar.jsx": {"status": "good", "issues": []},
+      "ProgressRing.jsx": {"status": "good", "issues": []},
+      "Skeleton.jsx": {"status": "good", "issues": []},
+      "Splash.jsx": {"status": "good", "issues": []},
+      "StatusDot.jsx": {"status": "needs-fix", "issues": ["对比度可能不足"]},
+      "Tabs.jsx": {"status": "good", "issues": []},
+      "Tooltip.jsx": {"status": "needs-fix", "issues": ["仅支持鼠标交互"]}
+    },
+    "layout": {
+      "Header.jsx": {"status": "needs-fix", "issues": ["移动端菜单未完整实现", "图标按钮缺少 aria-label"]},
+      "MainLayout.jsx": {"status": "good", "issues": []},
+      "MobileNav.jsx": {"status": "needs-fix", "issues": ["导航项过多"]},
+      "Sidebar.jsx": {"status": "needs-fix", "issues": ["导航按钮缺少 aria-label"]}
+    }
+  }
+}

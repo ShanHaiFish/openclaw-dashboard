@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "project": "openclaw-dashboard",
+    "path": "/home/node/.openclaw/workspace/openclaw-dashboard/",
+    "reviewDate": "2026-03-22",
+    "reviewer": "docs-review-subagent"
+  },
+
+  "overallScore": {
+    "score": 72,
+    "maxScore": 100,
+    "rating": "Good - Ready for soft launch, needs polish for full open-source readiness",
+    "breakdown": {
+      "readme": 82,
+      "standardFiles": 60,
+      "packageConfig": 68,
+      "competitiveness": 78
+    }
+  },
+
+  "readme": {
+    "strengths": [
+      "✅ 项目介绍吸引人 - 开头有清晰的价值主张和 emoji 装饰",
+      "✅ 功能特性列表清晰 - 8 大功能点，用 emoji 增强可读性",
+      "✅ 安装步骤详细 - 包含 Clone、Install、Build、Start、Dev、Docker 六种场景",
+      "✅ 架构图清晰 - ASCII art 展示技术栈层次",
+      "✅ API 端点文档表格 - 一目了然",
+      "✅ 键盘快捷键表格 - 对开发者友好",
+      "✅ 性能基准数据 - 展示专业性",
+      "✅ 部署选项多样 - Docker、VPS、Systemd",
+      "✅ FAQ 部分完善 - 覆盖常见问题",
+      "✅ License 声明正确",
+      "✅ Badges 完整 (License/Stars/PRs/Build/Docker/Node)",
+      "✅ 竞品对比表格 - Feature Comparison 表格有说服力"
+    ],
+    "weaknesses": [
+      "❌ 预览截图缺失 - README 引用 docs/preview.png 但文件不存在",
+      "⚠️ Star History 链接为占位符 - 仓库可能尚未创建",
+      "⚠️ 缺少 Getting Started 视频/GIF - 无法快速展示效果",
+      "⚠️ Contributing 链接指向 CONTRIBUTING.md 但无 badge 标识",
+      "⚠️ 缺少 'Why' 部分的用户痛点描述 - 现有内容偏功能而非场景",
+      "⚠️ 没有贡献者徽章 (All Contributors)"
+    ],
+    "suggestions": [
+      "1. 创建并添加预览截图/录屏 GIF 到 docs/preview.png",
+      "2. 在 README 顶部添加 'Live Demo' 链接（如部署到 Vercel/Railway）",
+      "3. 添加 'Who uses this?' 或 'Showcase' 部分",
+      "4. 添加 npm install 方式（如发布到 npm）",
+      "5. 添加 'Built with' 技术栈 badge",
+      "6. 考虑添加 'Stars over time' 之外的活跃度指标",
+      "7. 添加 'Roadmap' 部分展示未来计划"
+    ]
+  },
+
+  "standardFiles": {
+    "present": [
+      {
+        "file": "LICENSE",
+        "status": "✅ 存在",
+        "type": "MIT",
+        "quality": "标准 MIT 许可证，包含年份和占位作者名"
+      },
+      {
+        "file": "CONTRIBUTING.md",
+        "status": "✅ 存在",
+        "quality": "优秀 - 8.4KB，内容详尽：开发环境、代码规范、提交规范、PR 模板、Bug 报告模板"
+      },
+      {
+        "file": ".github/FUNDING.yml",
+        "status": "✅ 存在",
+        "quality": "配置完整，包含 GitHub Sponsors、Patreon、Open Collective 等 9 个平台"
+      },
+      {
+        "file": ".github/workflows/ci.yml",
+        "status": "✅ 存在",
+        "quality": "良好的 CI 配置 - Node 18/20 矩阵测试 + Docker 构建"
+      },
+      {
+        "file": ".github/workflows/release.yml",
+        "status": "✅ 存在",
+        "quality": "存在，但未检查内容"
+      }
+    ],
+    "missing": [
+      {
+        "file": "CODE_OF_CONDUCT.md",
+        "priority": "高",
+        "impact": "社区行为准则，大型项目的标配，缺少会影响专业形象",
+        "recommendation": "使用 Contributor Covenant 2.1 模板，约 4KB",
+        "effort": "低 - 15 分钟"
+      },
+      {
+        "file": "CHANGELOG.md",
+        "priority": "高",
+        "impact": "版本变更记录，用户升级时的必备参考",
+        "recommendation": "遵循 Keep a Changelog 格式，至少记录 v2.0.0 的功能",
+        "effort": "中 - 30 分钟"
+      },
+      {
+        "file": ".github/ISSUE_TEMPLATE/bug_report.md",
+        "priority": "中",
+        "impact": "标准化 Issue 提交，减少无效 Issue",
+        "recommendation": "CONTRIBUTING.md 已有模板，可直接迁移为 GitHub Issue Template",
+        "effort": "低 - 10 分钟"
+      },
+      {
+        "file": ".github/ISSUE_TEMPLATE/feature_request.md",
+        "priority": "中",
+        "impact": "引导功能请求格式",
+        "recommendation": "标准功能请求模板",
+        "effort": "低 - 10 分钟"
+      },
+      {
+        "file": ".github/PULL_REQUEST_TEMPLATE.md",
+        "priority": "低",
+        "impact": "PR 规范化，CONTRIBUTING.md 已有 PR 模板内容",
+        "recommendation": "将 CONTRIBUTING.md 中的 PR 模板提取为独立文件",
+        "effort": "低 - 5 分钟"
+      }
+    ]
+  },
+
+  "packageConfig": {
+    "packageJson": {
+      "score": 68,
+      "issues": [
+        {
+          "field": "engines",
+          "status": "❌ 缺失",
+          "severity": "中",
+          "recommendation": "添加 'engines': { \"node\": \">=18\" }"
+        },
+        {
+          "field": "author",
+          "status": "❌ 空字符串",
+          "severity": "中",
+          "recommendation": "填写作者信息，如 'OpenClaw Team <hello@openclaw.dev>'"
+        },
+        {
+          "field": "main",
+          "status": "⚠️ 值为 'postcss.config.js'",
+          "severity": "高",
+          "recommendation": "应为 'server/index.js' 或删除此字段"
+        },
+        {
+          "field": "files",
+          "status": "❌ 缺失",
+          "severity": "低",
+          "recommendation": "如发布 npm，添加 files 字段控制发布内容"
+        },
+        {
+          "field": "types/typesVersions",
+          "status": "❌ 缺失",
+          "severity": "低",
+          "recommendation": "devDependencies 有 @types/react，但无 types 字段"
+        }
+      ],
+      "positive": [
+        "✅ private: false - 允许发布",
+        "✅ type: module - 现代 ESM",
+        "✅ keywords 包含 5 个搜索词",
+        "✅ repository 和 bugs URL 正确",
+        "✅ homepage 指向 README"
+      ]
+    },
+    "scripts": {
+      "score": 65,
+      "available": ["dev", "build", "preview", "start", "server"],
+      "missing": [
+        "lint - 无代码检查脚本",
+        "test - 无测试脚本",
+        "format - 无格式化脚本",
+        "typecheck - 无类型检查"
+      ],
+      "recommendation": "添加 lint (eslint) 和 test (vitest/jest) 至少两个脚本"
+    },
+    "dependencies": {
+      "score": 85,
+      "notes": [
+        "React 18.2.0 - 稳定版本 ✓",
+        "Framer Motion 11.0.0 - 最新主版本 ✓",
+        "Zustand 4.5.0 - 稳定 ✓",
+        "Recharts 2.12.0 - 最新 ✓",
+        "所有依赖都有 ^ 前缀允许补丁更新 ✓",
+        "server/package.json 有独立依赖 (express/ws/cors/compression) ✓"
+      ],
+      "concern": "无已知安全漏洞依赖，但未配置 npm audit 检查"
+    }
+  },
+
+  "competitiveness": {
+    "positioning": {
+      "score": 78,
+      "clarity": "清晰",
+      "targetAudience": "OpenClaw AI Agent 用户/开发者",
+      "uniqueSellingPoints": [
+        "⌘K Command Palette - 在监控工具中少见",
+        "4 主题支持（含 AMOLED）- 细节用心",
+        "插件系统 - 可扩展性强",
+        "原生 i18n - 中英双语",
+        "极致动画体验 - Framer Motion",
+        "零配置启动 - 开箱即用"
+      ]
+    },
+    "competitorAnalysis": [
+      {
+        "name": "Grafana",
+        "type": "通用监控",
+        "advantages": ["更美观", "更轻量", "针对 AI Agent 场景定制", "⌘K 快捷键"],
+        "disadvantages": ["功能不如 Grafana 全面", "社区生态小", "无告警系统"]
+      },
+      {
+        "name": "Terminal UI (bubbletea/huh)",
+        "type": "终端界面",
+        "advantages": ["Web 界面更友好", "移动端支持", "更丰富的可视化"],
+        "disadvantages": ["需要浏览器", "不一定是劣势"]
+      },
+      {
+        "name": "Netdata",
+        "type": "系统监控",
+        "advantages": ["AI Agent 专属视角", "更现代的 UI", "插件系统"],
+        "disadvantages": ["监控深度不如 Netdata", "无部署监控"]
+      },
+      {
+        "name": "自建 Dashboard (通用模板)",
+        "type": "DIY 方案",
+        "advantages": ["开箱即用", "预设 AI Agent 数据模型", "持续维护"],
+        "disadvantages": ["定制性不如完全自建"]
+      }
+    ],
+    "starPotential": {
+      "score": 75,
+      "factors": {
+        "positive": [
+          "高颜值 - 开源项目的第一吸引力",
+          "实用性强 - AI Agent 监控是增长需求",
+          "技术栈现代 - React + Vite + Tailwind 符合趋势",
+          "文档质量高 - CONTRIBUTING.md 超过 8KB",
+          "Docker 就绪 - 降低使用门槛",
+          "i18n 支持 - 中英文用户群体覆盖"
+        ],
+        "negative": [
+          "依赖特定平台 (OpenClaw) - 通用性受限",
+          "无测试 - 影响可信度",
+          "截图/GIF 缺失 - 无法快速展示价值",
+          "仓库名 openclaw 可能未注册为 GitHub org",
+          "无真实用户案例/testimonials"
+        ]
+      },
+      "estimatedTimeline": {
+        "launchMonth1": "50-100 stars (社区分享)",
+        "launchMonth3": "200-500 stars (如有 HN/Reddit 曝光)",
+        "launchMonth6": "500-1500 stars (如持续维护+内容营销)",
+        "optimistic": "3000+ stars (如有大 V 推荐或成为 OpenClaw 默认 Dashboard)"
+      }
+    }
+  },
+
+  "missingFilesChecklist": [
+    {
+      "file": "CODE_OF_CONDUCT.md",
+      "priority": "🔴 高",
+      "template": "https://www.contributor-covenant.org/version/2/1/code_of_conduct/",
+      "estimatedTime": "15 min"
+    },
+    {
+      "file": "CHANGELOG.md",
+      "priority": "🔴 高",
+      "template": "https://keepachangelog.com/en/1.1.0/",
+      "estimatedTime": "30 min"
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "priority": "🟡 中",
+      "template": "已有内容在 CONTRIBUTING.md",
+      "estimatedTime": "10 min"
+    },
+    {
+      "file": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "priority": "🟡 中",
+      "template": "标准 GitHub 模板",
+      "estimatedTime": "10 min"
+    },
+    {
+      "file": ".github/PULL_REQUEST_TEMPLATE.md",
+      "priority": "🟢 低",
+      "template": "已有内容在 CONTRIBUTING.md",
+      "estimatedTime": "5 min"
+    },
+    {
+      "file": "docs/preview.png",
+      "priority": "🔴 高",
+      "template": "需要实际截图",
+      "estimatedTime": "15 min"
+    }
+  ],
+
+  "actionPlan": {
+    "phase1_critical": {
+      "label": "发布前必须完成 (Pre-launch Critical)",
+      "items": [
+        "创建 docs/preview.png 截图",
+        "创建 CODE_OF_CONDUCT.md",
+        "创建 CHANGELOG.md",
+        "修复 package.json 中 main 字段",
+        "添加 engines 字段"
+      ],
+      "estimatedTotal": "1.5 小时"
+    },
+    "phase2_important": {
+      "label": "发布后一周内完成 (Post-launch Important)",
+      "items": [
+        "创建 .github/ISSUE_TEMPLATE/ 目录及模板",
+        "创建 .github/PULL_REQUEST_TEMPLATE.md",
+        "添加 lint 脚本 (eslint)",
+        "添加 test 脚本 (vitest)",
+        "填写 author 字段"
+      ],
+      "estimatedTotal": "2 小时"
+    },
+    "phase3_enhancement": {
+      "label": "持续优化 (Ongoing Enhancement)",
+      "items": [
+        "添加 Live Demo 部署",
+        "录制产品演示视频",
+        "添加 All Contributors badge",
+        "添加 Roadmap 部分",
+        "收集用户 testimonials",
+        "配置 npm publish（可选）"
+      ],
+      "estimatedTotal": "4+ 小时"
+    }
+  },
+
+  "summary": {
+    "currentState": "项目文档质量良好，README 内容丰富（13KB），CONTRIBUTING.md 详尽（8KB），CI/CD 配置完善。主要短板在于社区标准文件（CODE_OF_CONDUCT、CHANGELOG）缺失，以及缺少可视化展示（截图/GIF）。package.json 存在小问题（main 字段错误、无 engines）。",
+    "recommendation": "项目已具备软发布（soft launch）条件。建议在正式宣布前花 1.5 小时完成 Phase 1 的 critical 项目，发布后再逐步补充 Phase 2 和 Phase 3 的内容。",
+    "riskLevel": "低 - 文档问题均可快速修复，不影响代码质量"
+  }
+}

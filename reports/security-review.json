@@ -1,0 +1,269 @@
+{
+  "report": {
+    "project": "OpenClaw Dashboard",
+    "path": "/home/node/.openclaw/workspace/openclaw-dashboard/",
+    "auditDate": "2026-03-22",
+    "auditor": "Security Audit Agent",
+    "overallScore": 65,
+    "riskLevel": "MEDIUM",
+    "summary": "OpenClaw Dashboard has a moderate security posture. The application has no hardcoded secrets and uses environment variables correctly, but lacks critical security headers, input validation, and authentication mechanisms."
+  },
+
+  "scoreBreakdown": {
+    "sensitiveInformationLeakage": {
+      "score": 85,
+      "maxScore": 100,
+      "notes": "No hardcoded secrets found. Environment variables properly used. .gitignore file is missing."
+    },
+    "networkSecurity": {
+      "score": 45,
+      "maxScore": 100,
+      "notes": "CORS is overly permissive. No CSP headers. No HTTPS enforcement. WebSocket uses unencrypted ws://."
+    },
+    "dependencySecurity": {
+      "score": 80,
+      "maxScore": 100,
+      "notes": "No known vulnerabilities in npm audit. Several outdated dependencies."
+    },
+    "dataSecurity": {
+      "score": 55,
+      "maxScore": 100,
+      "notes": "No input validation. Error details exposed to clients. No rate limiting."
+    }
+  },
+
+  "vulnerabilities": {
+    "high": [
+      {
+        "id": "SEC-H001",
+        "title": "Missing .gitignore file",
+        "description": "No .gitignore file exists, risking accidental commit of sensitive files (.env, credentials, session data).",
+        "location": "Root directory",
+        "impact": "Sensitive configuration or credential files could be committed to version control.",
+        "recommendation": "Create a comprehensive .gitignore file including: .env, .env.*, *.log, node_modules, dist, coverage, .DS_Store, session data directories.",
+        "references": ["https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files"]
+      },
+      {
+        "id": "SEC-H002",
+        "title": "Overly Permissive CORS Configuration",
+        "description": "CORS is configured with app.use(cors()) without any restrictions, allowing requests from any origin.",
+        "location": "server/index.js:60",
+        "impact": "Any malicious website can make API requests to this server, enabling CSRF-like attacks.",
+        "recommendation": "Restrict CORS to specific allowed origins: app.use(cors({ origin: ['http://localhost:3777', 'https://yourdomain.com'] }))",
+        "references": ["https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS"]
+      },
+      {
+        "id": "SEC-H003",
+        "title": "No Authentication on API Endpoints",
+        "description": "All API endpoints are publicly accessible without any authentication or authorization.",
+        "location": "server/index.js (all /api/* routes)",
+        "impact": "Anyone can access session data, system metrics, and other sensitive information.",
+        "recommendation": "Implement authentication middleware (JWT, API key, or session-based auth) for protected endpoints.",
+        "references": ["https://expressjs.com/en/advanced/best-practice-security.html"]
+      },
+      {
+        "id": "SEC-H004",
+        "title": "Missing Security Headers",
+        "description": "No security headers (CSP, X-Frame-Options, X-Content-Type-Options, HSTS) are set.",
+        "location": "server/index.js",
+        "impact": "Vulnerable to XSS, clickjacking, and other client-side attacks.",
+        "recommendation": "Install and configure helmet.js: const helmet = require('helmet'); app.use(helmet());",
+        "references": ["https://helmetjs.github.io/"]
+      }
+    ],
+
+    "medium": [
+      {
+        "id": "SEC-M001",
+        "title": "No Input Validation on Query Parameters",
+        "description": "Query parameters (page, limit, search, status) are used without validation or sanitization.",
+        "location": "server/index.js:117-120, 144-147",
+        "impact": "Potential for injection attacks or unexpected behavior with malformed input.",
+        "recommendation": "Add input validation using joi, express-validator, or manual checks. Validate types, ranges, and patterns.",
+        "references": ["https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"]
+      },
+      {
+        "id": "SEC-M002",
+        "title": "Error Details Exposed to Client",
+        "description": "ErrorBoundary component displays error stack traces and component stacks to users.",
+        "location": "src/components/ui/ErrorBoundary.jsx:53-57",
+        "impact": "Reveals internal application structure and potentially sensitive information.",
+        "recommendation": "Only show generic error messages to users. Log detailed errors server-side only.",
+        "references": ["https://owasp.org/www-project-top-ten/2017/A3-Sensitive-Data-Exposure"]
+      },
+      {
+        "id": "SEC-M003",
+        "title": "No Rate Limiting",
+        "description": "No rate limiting middleware is applied to API endpoints.",
+        "location": "server/index.js",
+        "impact": "Vulnerable to DoS attacks and API abuse.",
+        "recommendation": "Implement rate limiting using express-rate-limit middleware.",
+        "references": ["https://www.npmjs.com/package/express-rate-limit"]
+      },
+      {
+        "id": "SEC-M004",
+        "title": "WebSocket Uses Unencrypted Protocol",
+        "description": "WebSocket connection uses ws:// instead of wss://.",
+        "location": "src/hooks/useWebSocket.js:3",
+        "impact": "Real-time data transmitted in plaintext, vulnerable to interception.",
+        "recommendation": "Use wss:// protocol in production and implement WebSocket authentication.",
+        "references": ["https://cheatsheetseries.owasp.org/cheatsheets/WebSocket_Cheat_Sheet.html"]
+      },
+      {
+        "id": "SEC-M005",
+        "title": "File System Access Without Path Validation",
+        "description": "Server reads files from hardcoded paths without validation.",
+        "location": "server/openclaw-real.js:14, 250",
+        "impact": "Potential path traversal if user input influences file paths.",
+        "recommendation": "Validate and sanitize all file paths. Use path.resolve() and ensure paths are within expected directories.",
+        "references": ["https://cheatsheetseries.owasp.org/cheatsheets/Path_Traversal_Cheat_Sheet.html"]
+      },
+      {
+        "id": "SEC-M006",
+        "title": "Missing Content-Security-Policy Meta Tag",
+        "description": "HTML head lacks CSP meta tag for additional client-side protection.",
+        "location": "index.html",
+        "impact": "Increased vulnerability to XSS attacks.",
+        "recommendation": "Add CSP meta tag: <meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' 'unsafe-inline'\">",
+        "references": ["https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"]
+      }
+    ],
+
+    "low": [
+      {
+        "id": "SEC-L001",
+        "title": "Console Logging in Production",
+        "description": "Multiple console.log/error statements throughout the codebase.",
+        "location": "server/index.js, server/openclaw-real.js",
+        "impact": "Potential information leakage in production logs.",
+        "recommendation": "Use a proper logging library (winston, pino) with log levels. Disable debug logs in production.",
+        "references": []
+      },
+      {
+        "id": "SEC-L002",
+        "title": "Deprecated WebSocket Path Configuration",
+        "description": "WebSocketServer configured with deprecated 'path' option in constructor.",
+        "location": "server/index.js:297",
+        "impact": "May cause compatibility issues with future ws library versions.",
+        "recommendation": "Move path configuration to the handleUpgrade method or use noServer option.",
+        "references": ["https://github.com/websockets/ws/blob/master/doc/ws.md"]
+      },
+      {
+        "id": "SEC-L003",
+        "title": "Outdated Dependencies",
+        "description": "Several dependencies have newer major versions available.",
+        "location": "package.json",
+        "impact": "May miss security patches and bug fixes in newer versions.",
+        "recommendation": "Update to latest stable versions: react 19, react-router-dom 7, framer-motion 12, recharts 3.",
+        "references": []
+      },
+      {
+        "id": "SEC-L004",
+        "title": "No HTTPS Configuration",
+        "description": "Server only supports HTTP, no HTTPS/TLS configuration provided.",
+        "location": "server/index.js:374",
+        "impact": "All traffic transmitted in plaintext.",
+        "recommendation": "Use a reverse proxy (nginx) for TLS termination or configure HTTPS directly with ssl certificates.",
+        "references": ["https://nodejs.org/api/https.html"]
+      },
+      {
+        "id": "SEC-L005",
+        "title": "Docker Container Port Exposure",
+        "description": "Docker compose exposes port 3777 directly to host.",
+        "location": "docker-compose.yml:7",
+        "impact": "Service directly accessible from host network.",
+        "recommendation": "Bind to localhost only: '127.0.0.1:3777:3777' if not using reverse proxy.",
+        "references": ["https://docs.docker.com/compose/compose-file/05-services/#ports"]
+      }
+    ]
+  },
+
+  "complianceCheck": {
+    "owaspTop10": {
+      "A01 Broken Access Control": "FAIL - No authentication/authorization",
+      "A02 Cryptographic Failures": "PARTIAL - No HTTPS enforcement",
+      "A03 Injection": "PARTIAL - No input validation",
+      "A04 Insecure Design": "PASS - Reasonable architecture",
+      "A05 Security Misconfiguration": "FAIL - Missing headers, permissive CORS",
+      "A06 Vulnerable Components": "PASS - No known vulnerabilities",
+      "A07 Auth Failures": "N/A - No auth implemented",
+      "A08 Data Integrity": "PARTIAL - No integrity checks",
+      "A09 Logging Failures": "PARTIAL - Basic console logging",
+      "A10 SSRF": "PASS - No user-controlled URLs fetched"
+    },
+    "securityHeaders": {
+      "Content-Security-Policy": "MISSING",
+      "X-Frame-Options": "MISSING",
+      "X-Content-Type-Options": "MISSING",
+      "Strict-Transport-Security": "MISSING",
+      "X-XSS-Protection": "MISSING",
+      "Referrer-Policy": "MISSING"
+    },
+    "dockerSecurity": {
+      "nonRootUser": "PASS",
+      "healthCheck": "PASS",
+      "productionEnv": "PASS",
+      "minimalImage": "PASS",
+      "readOnlyFilesystem": "NOT CONFIGURED"
+    }
+  },
+
+  "positiveFindings": [
+    "No hardcoded API keys or secrets in source code",
+    "Environment variables used for configuration (PORT, USE_REAL_DATA, NODE_ENV)",
+    "Docker container runs as non-root user (nodejs:1001)",
+    "No known vulnerabilities in npm dependencies",
+    "Source maps disabled in production build",
+    "Docker health check configured",
+    "Production dependencies properly separated from devDependencies",
+    "No dangerouslySetInnerHTML or eval() usage in frontend",
+    "React's built-in XSS protection utilized",
+    "Compression middleware enabled"
+  ],
+
+  "recommendations": {
+    "immediate": [
+      "Create .gitignore file to prevent accidental credential commits",
+      "Install and configure helmet.js for security headers",
+      "Restrict CORS to specific allowed origins",
+      "Add input validation middleware to all API endpoints",
+      "Implement basic authentication for API access"
+    ],
+    "shortTerm": [
+      "Add rate limiting with express-rate-limit",
+      "Configure Content-Security-Policy headers",
+      "Remove error stack traces from client-facing responses",
+      "Implement proper logging with log levels",
+      "Add HTTPS support or configure reverse proxy"
+    ],
+    "longTerm": [
+      "Implement full OAuth2/JWT authentication system",
+      "Add request/response logging with sanitization",
+      "Set up security monitoring and alerting",
+      "Conduct regular security audits",
+      "Implement API versioning with deprecation policies"
+    ]
+  },
+
+  "riskMatrix": {
+    "critical": 0,
+    "high": 4,
+    "medium": 6,
+    "low": 5,
+    "informational": 0
+  },
+
+  "testedComponents": [
+    "server/index.js - Main Express server",
+    "server/openclaw-api.js - Mock data layer",
+    "server/openclaw-real.js - Real data adapter",
+    "src/hooks/useWebSocket.js - WebSocket client",
+    "src/hooks/useFetch.js - HTTP client hook",
+    "src/components/ui/ErrorBoundary.jsx - Error handling",
+    "vite.config.js - Build configuration",
+    "Dockerfile - Container configuration",
+    "docker-compose.yml - Orchestration configuration",
+    "package.json - Dependencies",
+    "index.html - Entry point"
+  ]
+}

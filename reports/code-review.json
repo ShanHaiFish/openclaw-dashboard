@@ -1,0 +1,275 @@
+{
+  "meta": {
+    "project": "openclaw-dashboard",
+    "version": "2.0.0",
+    "reviewDate": "2026-03-22",
+    "reviewer": "Ant - AI Code Review Agent",
+    "projectPath": "/home/node/.openclaw/workspace/openclaw-dashboard/"
+  },
+  "summary": {
+    "overallScore": 72,
+    "verdict": "项目整体结构良好，具有现代化的React技术栈和清晰的组件层次。代码在项目组织、懒加载、国际化等方面做得不错，但在类型安全、测试覆盖、性能优化等方面存在明显不足。生产环境部署前需要解决若干中等严重问题。",
+    "strengths": [
+      "清晰的目录结构和组件组织",
+      "良好的代码分割和懒加载实现",
+      "完善的国际化支持（中/英）",
+      "优雅的错误边界处理",
+      "WebSocket实时数据更新",
+      "自定义hooks抽象良好"
+    ],
+    "weaknesses": [
+      "完全缺乏TypeScript/PropTypes类型定义",
+      "没有测试代码",
+      "性能优化手段使用不足",
+      "部分大组件过于臃肿",
+      "服务端代码缺乏输入验证"
+    ]
+  },
+  "scores": {
+    "projectStructure": {
+      "score": 82,
+      "weight": 0.20,
+      "comment": "目录组织合理，组件按功能分组，hooks/lib/utils分离清晰"
+    },
+    "codeQuality": {
+      "score": 65,
+      "weight": 0.25,
+      "comment": "组件设计模式较好，但缺乏类型安全，部分组件过大"
+    },
+    "performance": {
+      "score": 68,
+      "weight": 0.20,
+      "comment": "已实现代码分割和懒加载，但缺少memo/useMemo优化"
+    },
+    "maintainability": {
+      "score": 75,
+      "weight": 0.20,
+      "comment": "有良好的注释和文档习惯，配置管理清晰"
+    },
+    "security": {
+      "score": 70,
+      "weight": 0.15,
+      "comment": "无明显安全漏洞，但服务端缺乏输入验证"
+    }
+  },
+  "weightedScore": 72,
+  "issues": {
+    "critical": [],
+    "major": [
+      {
+        "id": "MAJ-001",
+        "title": "完全缺乏类型安全",
+        "description": "项目未使用TypeScript，也未在JSX组件中使用PropTypes。在大型项目中这将导致运行时错误难以追踪。",
+        "location": "src/**/*.jsx",
+        "impact": "高 - 增加运行时错误风险，降低代码可维护性",
+        "recommendation": "考虑迁移到TypeScript，或至少为公开API组件添加PropTypes"
+      },
+      {
+        "id": "MAJ-002",
+        "title": "缺乏测试覆盖",
+        "description": "项目中没有发现任何测试文件（unit test/integration test）。package.json中也没有测试相关的依赖和脚本。",
+        "location": "项目根目录",
+        "impact": "高 - 无法保证代码质量和回归安全",
+        "recommendation": "引入Jest + React Testing Library，为核心hooks和组件编写测试"
+      },
+      {
+        "id": "MAJ-003",
+        "title": "大组件过于臃肿",
+        "description": "AgentPerformance.jsx(396行)、TokenAnalytics.jsx(360行)、AlertCenter.jsx(305行)等组件代码量过大，职责不单一。",
+        "location": "src/components/Analytics/, src/components/Alerts/",
+        "impact": "中 - 增加维护难度，降低代码复用性",
+        "recommendation": "拆分为更小的子组件，提取业务逻辑到hooks"
+      },
+      {
+        "id": "MAJ-004",
+        "title": "服务端API缺乏输入验证",
+        "description": "server/index.js中的API端点对查询参数缺乏验证，如page/limit参数未验证类型和范围。",
+        "location": "server/index.js",
+        "impact": "中 - 可能导致服务端错误或信息泄露",
+        "recommendation": "添加输入验证中间件，使用zod或joi验证schema"
+      }
+    ],
+    "moderate": [
+      {
+        "id": "MOD-001",
+        "title": "渲染优化不足",
+        "description": "项目中几乎没有使用React.memo、useMemo、useCallback进行渲染优化。列表组件（SessionList、AgentGrid等）在频繁更新时可能有性能问题。",
+        "location": "src/components/**/*.jsx",
+        "impact": "中 - 在数据量大时可能导致不必要的重渲染",
+        "recommendation": "对纯展示组件使用React.memo，对复杂计算使用useMemo"
+      },
+      {
+        "id": "MOD-002",
+        "title": "WebSocket连接缺乏错误恢复策略",
+        "description": "虽然有重连机制，但最大重连次数未限制，且无用户反馈机制。",
+        "location": "src/hooks/useWebSocket.js",
+        "impact": "中 - 网络不稳定时可能无限重连",
+        "recommendation": "添加最大重连次数限制，提供连接状态UI反馈"
+      },
+      {
+        "id": "MOD-003",
+        "title": "useFetch Hook存在缺陷",
+        "description": "useFetch hook的useCallback依赖项包含options对象，但options未在依赖数组中，可能导致数据不更新。",
+        "location": "src/hooks/useFetch.js",
+        "impact": "中 - 可能导致数据陈旧",
+        "recommendation": "使用JSON.stringify(options)或useRef来正确处理依赖"
+      },
+      {
+        "id": "MOD-004",
+        "title": "硬编码的路径和配置",
+        "description": "server/openclaw-real.js中硬编码了SESSIONS_DIR路径('/home/node/.openclaw/agents/main/sessions')。",
+        "location": "server/openclaw-real.js",
+        "impact": "低 - 降低部署灵活性",
+        "recommendation": "使用环境变量配置路径"
+      },
+      {
+        "id": "MOD-005",
+        "title": "props逐层传递（prop drilling）",
+        "description": "t函数、theme等通过props层层传递到子组件，可考虑Context优化。",
+        "location": "src/App.jsx, src/components/Layout/",
+        "impact": "低 - 增加组件耦合",
+        "recommendation": "考虑使用Context或更细粒度的状态管理"
+      },
+      {
+        "id": "MOD-006",
+        "title": "键盘快捷键存在冲突",
+        "description": "单键快捷键（1-8, ?）可能与输入框中的正常输入冲突，虽然有INPUT/TEXTAREA检查，但未覆盖所有可编辑区域。",
+        "location": "src/hooks/useKeyboardShortcuts.js",
+        "impact": "低 - 可能意外触发导航",
+        "recommendation": "增加更全面的输入检查，或改为组合键"
+      }
+    ],
+    "suggestions": [
+      {
+        "id": "SUG-001",
+        "title": "添加ESLint和Prettier配置",
+        "description": "项目中未发现ESLint或Prettier配置文件，代码风格可能不统一。",
+        "location": "项目根目录",
+        "recommendation": "添加.eslintrc.js和.prettierrc配置"
+      },
+      {
+        "id": "SUG-002",
+        "title": "使用路径别名简化导入",
+        "description": "vite.config.js已配置@别名，但代码中仍使用相对路径导入。",
+        "location": "src/**/*.jsx",
+        "recommendation": "统一使用@/开头的路径别名"
+      },
+      {
+        "id": "SUG-003",
+        "title": "添加环境变量文档",
+        "description": "USE_REAL_DATA、PORT等环境变量使用但未文档化。",
+        "location": "server/index.js, README.md",
+        "recommendation": "在README或.env.example中列出所有环境变量"
+      },
+      {
+        "id": "SUG-004",
+        "title": "添加请求速率限制",
+        "description": "API端点无速率限制，可能被滥用。",
+        "location": "server/index.js",
+        "recommendation": "使用express-rate-limit中间件"
+      },
+      {
+        "id": "SUG-005",
+        "title": "优化Bundle分析",
+        "description": "未进行bundle大小分析，不知道哪些依赖占用了最多空间。",
+        "location": "项目根目录",
+        "recommendation": "添加rollup-plugin-visualizer进行bundle分析"
+      },
+      {
+        "id": "SUG-006",
+        "title": "添加CSP头部",
+        "description": "服务器未设置Content-Security-Policy头部。",
+        "location": "server/index.js",
+        "recommendation": "添加helmet中间件设置安全头部"
+      },
+      {
+        "id": "SUG-007",
+        "title": "错误日志持久化",
+        "description": "错误仅通过console.error记录，没有持久化。",
+        "location": "server/index.js, src/components/ui/ErrorBoundary.jsx",
+        "recommendation": "考虑集成错误跟踪服务（如Sentry）"
+      }
+    ]
+  },
+  "detailedAnalysis": {
+    "projectStructure": {
+      "rating": "Good",
+      "details": {
+        "directoryOrganization": "目录按功能清晰组织：components按模块分组（Dashboard/Sessions/Agents等）、hooks/lib/utils分离",
+        "fileNaming": "文件命名遵循PascalCase（组件）和camelCase（hooks/utils）规范",
+        "moduleSeparation": "业务组件、UI组件、hooks、store分离良好",
+        "importExport": "使用ES模块，导入顺序基本规范"
+      }
+    },
+    "codeQuality": {
+      "rating": "Fair",
+      "details": {
+        "componentPatterns": "使用函数组件+hooks模式，错误边界实现良好",
+        "stateManagement": "Zustand状态管理轻量高效，WebSocket集成合理",
+        "errorHandling": "有ErrorBoundary，API错误处理基本完善",
+        "codeDuplication": "部分代码重复（如agent data merging逻辑在多处出现）",
+        "typeSafety": "完全缺失 - 无TypeScript无PropTypes"
+      }
+    },
+    "performance": {
+      "rating": "Fair",
+      "details": {
+        "codeSplitting": "使用React.lazy进行页面级代码分割，配置正确",
+        "lazyLoading": "所有页面组件都是懒加载",
+        "bundleSize": "dist/assets约984KB，未压缩分析，大小中等",
+        "renderOptimization": "几乎没有使用memo/useMemo/useCallback进行渲染优化"
+      }
+    },
+    "maintainability": {
+      "rating": "Good",
+      "details": {
+        "documentation": "有完善的README和CONTRIBUTING文档",
+        "configManagement": "配置集中（constants.js）和环境变量",
+        "dependencyManagement": "依赖版本固定，有lock文件",
+        "versionControl": "有.gitignore，配置合理"
+      }
+    },
+    "security": {
+      "rating": "Fair",
+      "details": {
+        "apiKeyLeaks": "未发现API密钥泄露",
+        "xss防护": "React默认防护XSS，无dangerouslySetInnerHTML使用",
+        "sensitiveData": "localStorage仅存储主题和语言偏好",
+        "serverValidation": "服务端缺乏输入验证和速率限制"
+      }
+    }
+  },
+  "techStack": {
+    "frontend": {
+      "framework": "React 18",
+      "routing": "React Router v6",
+      "stateManagement": "Zustand",
+      "styling": "Tailwind CSS + CSS Variables",
+      "animation": "Framer Motion",
+      "charts": "Recharts",
+      "buildTool": "Vite 5"
+    },
+    "backend": {
+      "framework": "Express.js",
+      "websocket": "ws",
+      "middleware": ["cors", "compression"]
+    }
+  },
+  "recommendations": {
+    "immediate": [
+      "添加ESLint/Prettier配置统一代码风格",
+      "为关键组件添加PropTypes或迁移TypeScript",
+      "添加基础单元测试覆盖核心hooks"
+    ],
+    "shortTerm": [
+      "拆分大型组件（>300行）",
+      "添加React.memo优化列表渲染",
+      "完善服务端输入验证"
+    ],
+    "longTerm": [
+      "考虑迁移到TypeScript",
+      "引入端到端测试",
+      "实施CI/CD流水线"
+    ]
+  }
+}

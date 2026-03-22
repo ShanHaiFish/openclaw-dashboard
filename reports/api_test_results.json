@@ -1,0 +1,129 @@
+{
+  "timestamp": "2026-03-22T09:13:04+00:00",
+  "baseUrl": "http://localhost:3777",
+  "tests": [
+    {
+      "endpoint": "/api/health",
+      "name": "Health Check",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/overview",
+      "name": "Overview",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/sessions",
+      "name": "Sessions",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/agents",
+      "name": "Agents",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/tasks",
+      "name": "Tasks",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": true,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/analytics/tokens",
+      "name": "Token Analytics",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/analytics/agents",
+      "name": "Agent Analytics",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/activity",
+      "name": "Activity Events",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/alerts",
+      "name": "Alerts",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/skills",
+      "name": "Skills",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/healthz",
+      "name": "Healthz (Alternative)",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/system",
+      "name": "System Metrics",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/heatmap",
+      "name": "Heatmap",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/notifications",
+      "name": "Notifications",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    },
+    {
+      "endpoint": "/api/subagents",
+      "name": "Subagents",
+      "httpCode": 200,
+      "jsonValid": false,
+      "hasUndefinedNull": false,
+      "passed": false
+    }
+  ],
+  "summary": {
+    "totalTests": 15
+  }
+}

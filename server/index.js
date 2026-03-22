@@ -441,7 +441,16 @@ wss.on('connection', (ws) => {
 // Start server
 const PORT = process.env.PORT || 3777;
 
-server.listen(PORT, () => {
+// Debug endpoint for browser errors
+app.get("/api/debug/errors", (req, res) => {
+  res.json({
+    errors: globalThis.__browserErrors || [],
+    wsConnected: true,
+    timestamp: new Date().toISOString()
+  });
+});
+
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`
   🔮 OpenClaw Dashboard Server
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━

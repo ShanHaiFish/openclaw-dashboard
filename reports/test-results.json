@@ -1,0 +1,420 @@
+{
+  "timestamp": "2026-03-22T09:14:32.915Z",
+  "baseUrl": "http://localhost:3777",
+  "environment": {
+    "nodeVersion": "v24.14.0",
+    "platform": "linux"
+  },
+  "summary": {
+    "totalTests": 38,
+    "passed": 37,
+    "failed": 1
+  },
+  "categories": {
+    "api": {
+      "tests": [
+        {
+          "name": "/api/health",
+          "passed": true,
+          "info": "48ms",
+          "responseTime": 48,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/overview",
+          "passed": true,
+          "info": "28ms",
+          "responseTime": 28,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/sessions",
+          "passed": true,
+          "info": "29ms",
+          "responseTime": 29,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/agents",
+          "passed": true,
+          "info": "28ms",
+          "responseTime": 28,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/tasks",
+          "passed": true,
+          "info": "28ms",
+          "responseTime": 28,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/analytics/tokens",
+          "passed": true,
+          "info": "28ms",
+          "responseTime": 28,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/analytics/agents",
+          "passed": true,
+          "info": "27ms",
+          "responseTime": 27,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/activity",
+          "passed": true,
+          "info": "28ms",
+          "responseTime": 28,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/alerts",
+          "passed": true,
+          "info": "55ms",
+          "responseTime": 55,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/skills",
+          "passed": true,
+          "info": "4ms",
+          "responseTime": 4,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/system",
+          "passed": true,
+          "info": "19ms",
+          "responseTime": 19,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/heatmap",
+          "passed": true,
+          "info": "29ms",
+          "responseTime": 29,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/notifications",
+          "passed": true,
+          "info": "56ms",
+          "responseTime": 56,
+          "statusCode": 200
+        },
+        {
+          "name": "/api/subagents",
+          "passed": true,
+          "info": "28ms",
+          "responseTime": 28,
+          "statusCode": 200
+        }
+      ],
+      "passed": 14,
+      "failed": 0
+    },
+    "pages": {
+      "tests": [
+        {
+          "name": "/ (Overview)",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/sessions",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/agents",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/tasks",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/analytics",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/alerts",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/activity",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/skills",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "/settings",
+          "passed": true,
+          "info": "938 bytes",
+          "contentSize": 938
+        },
+        {
+          "name": "404 Page",
+          "passed": true,
+          "info": "SPA routing test"
+        }
+      ],
+      "passed": 10,
+      "failed": 0
+    },
+    "i18n": {
+      "tests": [
+        {
+          "name": "i18n Framework Detection",
+          "passed": true
+        },
+        {
+          "name": "Language Attribute",
+          "passed": true
+        },
+        {
+          "name": "Chinese Locale Request",
+          "passed": true
+        },
+        {
+          "name": "English Locale Request",
+          "passed": true
+        },
+        {
+          "name": "Locale Persistence Support",
+          "passed": false
+        }
+      ],
+      "passed": 4,
+      "failed": 1
+    },
+    "themes": {
+      "tests": [
+        {
+          "name": "Dark Theme",
+          "passed": true
+        },
+        {
+          "name": "Light Theme",
+          "passed": true
+        },
+        {
+          "name": "Amoled Theme",
+          "passed": true
+        },
+        {
+          "name": "CSS Theme Files",
+          "passed": true
+        },
+        {
+          "name": "Theme Cookie/Persistence",
+          "passed": true
+        }
+      ],
+      "passed": 5,
+      "failed": 0
+    },
+    "realtime": {
+      "tests": [
+        {
+          "name": "WebSocket Endpoint",
+          "passed": true,
+          "info": "Status: 400"
+        },
+        {
+          "name": "API Response Speed",
+          "passed": true,
+          "info": "4ms"
+        },
+        {
+          "name": "Manual Refresh Support",
+          "passed": true
+        },
+        {
+          "name": "Concurrent Request Handling",
+          "passed": true
+        }
+      ],
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "i18nAnalysis": {
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "topLevelKeys": {
+      "en": [
+        "app",
+        "nav",
+        "overview",
+        "sessions",
+        "agents",
+        "tasks",
+        "settings",
+        "theme",
+        "commandPalette",
+        "shortcuts",
+        "notifications",
+        "common",
+        "time",
+        "system",
+        "about",
+        "error",
+        "splash",
+        "notFound",
+        "plugins",
+        "analytics",
+        "alerts",
+        "activity",
+        "skills"
+      ],
+      "zh": [
+        "app",
+        "nav",
+        "overview",
+        "sessions",
+        "agents",
+        "tasks",
+        "settings",
+        "theme",
+        "commandPalette",
+        "shortcuts",
+        "notifications",
+        "common",
+        "time",
+        "system",
+        "about",
+        "error",
+        "splash",
+        "notFound",
+        "plugins",
+        "analytics",
+        "alerts",
+        "activity",
+        "skills"
+      ],
+      "match": true
+    },
+    "completeness": "100%",
+    "hasTranslations": true,
+    "noHardcodedText": "Verified - all text uses translation keys"
+  },
+  "themeAnalysis": {
+    "supportedThemes": [
+      "dark",
+      "light",
+      "amoled",
+      "system"
+    ],
+    "themeTransition": "CSS transitions enabled",
+    "persistence": "localStorage based",
+    "variables": "CSS custom properties"
+  },
+  "realtimeAnalysis": {
+    "websocket": {
+      "endpoint": "/ws",
+      "protocol": "WebSocket",
+      "updateInterval": "5 seconds",
+      "reconnectEnabled": true
+    },
+    "features": [
+      "Auto-refresh",
+      "Manual refresh",
+      "Cache busting"
+    ]
+  },
+  "dataQuality": {
+    "apiEndpointsWorking": 14,
+    "pagesRendering": 10,
+    "noUndefinedNull": true,
+    "responseTimes": {
+      "fastest": "4ms (/api/skills)",
+      "slowest": "56ms (/api/notifications)",
+      "average": "~30ms"
+    }
+  },
+  "detailedSummary": {
+    "api": {
+      "total": 14,
+      "passed": 14,
+      "endpoints": [
+        "/api/health",
+        "/api/overview",
+        "/api/sessions",
+        "/api/agents",
+        "/api/tasks",
+        "/api/analytics/tokens",
+        "/api/analytics/agents",
+        "/api/activity",
+        "/api/alerts",
+        "/api/skills",
+        "/api/system",
+        "/api/heatmap",
+        "/api/notifications",
+        "/api/subagents"
+      ]
+    },
+    "pages": {
+      "total": 10,
+      "passed": 10,
+      "routes": [
+        "/",
+        "/sessions",
+        "/agents",
+        "/tasks",
+        "/analytics",
+        "/alerts",
+        "/activity",
+        "/skills",
+        "/settings",
+        "404"
+      ]
+    },
+    "i18n": {
+      "total": 5,
+      "passed": 4,
+      "note": "Locale persistence support detection is implementation-specific"
+    },
+    "themes": {
+      "total": 5,
+      "passed": 5,
+      "themes": [
+        "dark",
+        "light",
+        "amoled",
+        "css-variables",
+        "persistence"
+      ]
+    },
+    "realtime": {
+      "total": 4,
+      "passed": 4,
+      "features": [
+        "WebSocket",
+        "API speed",
+        "Manual refresh",
+        "Concurrent requests"
+      ]
+    }
+  }
+}
