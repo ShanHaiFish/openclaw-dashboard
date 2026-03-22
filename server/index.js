@@ -380,6 +380,75 @@ app.get('/api/real/sessions', (req, res) => {
   res.json(getRealSessions());
 });
 
+// Debug endpoint - test page with CSS variables and JS error capture
+app.get('/debug', (req, res) => {
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Debug - OpenClaw Dashboard</title>
+  <style>
+    body { 
+      background: #0f172a; 
+      color: #f8fafc; 
+      font-family: Inter, system-ui, sans-serif;
+      padding: 20px;
+    }
+    .test { 
+      background: var(--bg-primary, #0f172a); 
+      color: var(--text-primary, #f8fafc);
+      padding: 20px;
+      border: 1px solid var(--border-primary, rgba(255,255,255,0.1));
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    .pass { color: #10b981; }
+    .fail { color: #ef4444; }
+    pre { background: #1e293b; padding: 10px; border-radius: 4px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Debug Page</h1>
+  <div class="test">
+    <h2>CSS Variables Test</h2>
+    <p id="css-test">If you can see this text clearly, CSS variables work.</p>
+    <p>Background should be dark (#0f172a), text should be light (#f8fafc).</p>
+  </div>
+  <div class="test">
+    <h2>JavaScript Test</h2>
+    <p id="js-test">Testing...</p>
+  </div>
+  <div class="test">
+    <h2>Fetch API Test</h2>
+    <p id="fetch-test">Testing...</p>
+  </div>
+  <div class="test">
+    <h2>Error Log</h2>
+    <pre id="error-log">No errors yet.</pre>
+  </div>
+  <script>
+    window.__errors = [];
+    window.addEventListener('error', function(e) {
+      window.__errors.push({msg: e.message, file: e.filename, line: e.lineno, col: e.colno});
+      document.getElementById('error-log').textContent = JSON.stringify(window.__errors, null, 2);
+    });
+    
+    document.getElementById('js-test').innerHTML = '<span class="pass">✅ JavaScript is working!</span>';
+    
+    // Test fetch
+    fetch('/api/health')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('fetch-test').innerHTML = '<span class="pass">✅ Fetch API works! Server response: ' + JSON.stringify(d) + '</span>';
+      })
+      .catch(e => {
+        document.getElementById('fetch-test').innerHTML = '<span class="fail">❌ Fetch failed: ' + e.message + '</span>';
+      });
+  </script>
+</body>
+</html>`);
+});
+
 // Serve React app for all other routes
 app.get('*', (req, res) => {
   res.sendFile(join(__dirname, '../dist/index.html'));
